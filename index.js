@@ -1,5 +1,7 @@
 const express = require("express");
 const colors = require("colors");
+const { notFound, errorHandler } = require("./middleware/errorMiddleware");
+
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
 const connectDB = require("./config/db");
@@ -12,6 +14,9 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/user", userRoutes);
+
+app.use(notFound);
+app.use(errorHandler);
 app.listen(5000, () => {
   console.log("SERVER STARTED !".yellow.bold);
 });
